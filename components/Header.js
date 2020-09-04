@@ -10,5 +10,25 @@
 //
 // Use your function to create a header
 // and append it to the DOM inside the div.header-container
+const headerHolder = document.querySelector(".header-container")
+function Header() {
+    const theHeader = document.createElement("div")
+    const date = document.createElement("span")
+    const theTitle = document.createElement("h1")
+    const temp = document.createElement("span")
 
-function Header() {}
+    theHeader.classList.add("header")
+    date.classList.add("date")
+    temp.classList.add("temp")
+
+    date.textContent = "MARCH 28, 2020"
+    theTitle.textContent = "Lambda Times"
+    temp.textContent = "98°"
+
+    theHeader.appendChild(date)
+    theHeader.appendChild(theTitle)
+    theHeader.appendChild(temp)
+
+    return theHeader;
+}
+headerHolder.appendChild(Header())
