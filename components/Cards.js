@@ -22,22 +22,22 @@
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 const cardsHolder = document.querySelector(".cards-container")
 
+
 axios.get(" https://lambda-times-api.herokuapp.com/articles")
-.then(response =>{
-    // console.log(response.data.articles)
-    const topicCard = Object.entries(response.data.articles)
-    // nested array (fiveArray)
-    console.log(topicCard)  
-    topicCard.forEach(fiveArray =>{
-        fiveArray.forEach(data =>{
-    
+    .then(response =>{
+        const topics = Object.values(response.data.articles)
+        topics.forEach((articles) => {
+            articles.forEach((article) => {
+                cardsHolder.appendChild(cardsMaker(article))
+            })
         })
-
     })
- })
-
-
-function cardsMaker () {
+    .catch(error =>{
+        console.log(error)
+     
+})
+   
+function cardsMaker (article) {
     const card = document.createElement("div")
     const headLine = document.createElement("div")
     const author = document.createElement("div")
@@ -50,10 +50,11 @@ function cardsMaker () {
     author.classList.add("author")
     imgContainer.classList.add("img-container")
 
-    // headLine.textContext = data.headline
-    // image.src = data.authorPhoto
-    // authorName.textContent = data.authorName
+    headLine.textContent =article.headline
+    image.src = article.authorPhoto
+    authorName.textContent = article.authorName
 
+    console.log(headLine)
 
     imgContainer.appendChild(image)
     author.appendChild(imgContainer)
@@ -61,8 +62,11 @@ function cardsMaker () {
     card.appendChild(headLine)
     card.appendChild(author)
 
+    card.addEventListener("click", ()=>{
+        console.log(article.headline)
+    })
+
     return card
 
 }
-cardsHolder.appendChild(cardsMaker())
-console.log(cardsHolder)
+
